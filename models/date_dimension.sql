@@ -1,0 +1,17 @@
+WITH CTE AS(
+select 
+TO_TIMESTAMP(STARTED_AT) AS STARTED_AT,
+
+DATE(TO_TIMESTAMP(STARTED_AT)) as DATE_STARTED_AT,
+
+HOUR(TO_TIMESTAMP(STARTED_AT)) AS HOUR_STARTED_AT,
+
+{{getdays('STARTED_AT')}} as DAY_TYPE,
+
+{{getseason('STARTED_AT')}} as SEASON_OF_YEAR
+
+    from 
+    {{ ref('stg_bike') }}
+)
+
+SELECT * FROM CTE 
